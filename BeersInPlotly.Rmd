@@ -1,0 +1,34 @@
+---
+title: "BeersInPlotly"
+author: "holliPista"
+date: '2021 03 10 '
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Beers in price and alcohol relation
+#### based on current prices of local Auchan store (in HUF)
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(plotly)
+beers<-c('Gösser','Arany Ászok','Arany Fácán','Arany Szarvas','Becks','Berliner Kindl',
+         'Bernard Bohemian','Borsodi','Pécsi APA','Soproni IPA', 'Asahi','Belle-Vue',
+         'Borsodi IPA','Dreher IPA','Fullers ESB','La Trappe Dubbel','La Trappe Tripel',
+         'Chimay')
+prices<-c(249,239,209,139,279,299,839,249,249,259,319,499,269,279,679,699,869,649)
+alcvol<-c(5.0,4.3,4.0,4.2,5.0,5.1,8.2,4.5,5.0,4.8,5.2,4.1,5.0,5.4,5.9,7.0,8.0,7.0)
+type<-c('lager','lager','lager','lager','lager','lager','ale','lager','ale','ale','lager',
+        'kriek','ale','ale','ale','dubbel/tripel','dubbel/tripel','dubbel/tripel')
+df<-data.frame(beers,prices,alcvol,type)
+
+fit <- lm(alcvol ~ prices, data = df)
+
+plot_ly(data = df, x = ~prices, y = ~alcvol, type = 'scatter', mode='markers',
+        name=~type, size=3, text=beers) 
+```
+
+## Let's open a beer!
+
+Cheers!
